@@ -295,6 +295,7 @@ app.microsoft.com       www.microsoft.com
     - vizszintesen ritkán változnak, függőlegesen állandóan. Az idejének nagy részét sorok létrehozása, módosítása, törlése és lekérdezése tölti ki.
 
 |Kulcs| Név         | Cím                        | Befizetés/Kifizetés | Partner     | Partner címe               |
+|-|-|-|-|-|-|
 |    1| Kiss József | 1000 Budapest, Fő utca 1   |              +5000  | Nagy Zoltán | 2000 Szentendre Al utca 1. | 
 |    2| Kiss József | 1000 Budapest, Fő utca 1   |              +2000  | Gipsz Jakab |                            |
 |    3| Kiss József | 1000 Budapest, Fő utca 1   |              -4000  | Fő Kálmán   |                            |
@@ -711,5 +712,6 @@ Példának tekintsük mondjuk
 A szoftverfejlesztés nem valódi mérnöki folyamat, hanem sokak szerint egy kaotikus tevékenység, ami időről időre mégis eredményt hoz.
 
 ![Project management](/Pics/ProjectManagement.jpg)
-[Projektek sikeressége 1](https://cdn2.hubspot.net/hubfs/542571/Doomed%20from%20the%20Start.pdf?t=1513091800721)
-[Projektek sikeressége 2](https://www.versionone.com/assets/img/files/CHAOSManifesto2013.pdf)
+
+- [Projektek sikeressége 1](https://cdn2.hubspot.net/hubfs/542571/Doomed%20from%20the%20Start.pdf?t=1513091800721)
+- [Projektek sikeressége 2](https://www.versionone.com/assets/img/files/CHAOSManifesto2013.pdf)

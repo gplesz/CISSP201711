@@ -504,4 +504,211 @@ figyelem: ezek implementálása nagyon komoly kihívás
 - az adatbázis perzisztens tárolásánál figyelni kell arra, hogy ne csak az OS biztonsági képességeiben bízzunk. (titkosított mentések, titkosított partíció az adatbázisfile-oknak)
 - többszintű biztonsági rendszer esetén szükséges az adatokat (memóriában és perzisztens tárolón is) fail safe. Azaz, ha valamilyen hiba történik, akkor a rendszer olyan állapotba kerül, hogy emberi beavatkozás nélkül nem használható.
 
+## Softvare Develoment
+### Mi a probléma a szoftverfejlesztéssel?
+Összetett és rengeteg kihívással teli feledatot tartalmazó problémakör. Gyakran
+- hozzáférnek érzékeny adatokhoz
+- nagyobb közönség számára hozzáférhetőek
+- sok esetben saját szoftver készül
+- a szoftver lehet "túl erős"
+  - közvetlen írányítés hardware és szoftvert elemek felett
+  - közvetlen írányítás az állományok felett
+  - közvetlenül hozzáférhet szerverekhez
+  - közvetlenül hozzáférhet I/O eszközökhöz
+  - közvetlen hozzáférés rendszer segédprogramokhoz
+  - közvetlen hozzáférés feladatok futtatásához/leállításához
+  - beállíthat dátumot, időt, jelszót
+  - képes indokolatlan lekérdezésekhez (DDoS)
+  - hozzáférés naplóhoz/audit loghoz
+  - hozzáférés erőforrásokhoz.
+
+Amennyiben saját szoftvert gyártunk fontos, hogy a biztonsági kérdések megfelelő súlyt kapjanak a kezdés pillanatától kezdve. Utólag biztonságot adni egy rendszernek nem lehet.
+
+### Programozási nyelvek
+Célja: A igenyeknek megfelelően bonyolult, egyszerű összeadással/logikai műveletekkel (amit a CPU támogat) nem egyszerűen leírható vagy leírhatatlan feladatok megoldása magasabb szinten.
+
+- 1GL: Gépi kód (a processzor számára közvetlenül értelmezhető utasítássorozat számokból)
+- 2GL: Assembly 
+- 3GL: Fordított (Interpretált) nyelvek (Fortran, Algol)
+- 4GL: Olyan nyelv, ami megpróbálja a természetes emberi nyelvet utánozni + használja az SQL-t adathozzáférésre.
+- 5GL: Grafikus felületen keresztüli kód létrehozás
+
+Managelt nyelvek
+---
+Forráskód ---(fordítás)---> Köztes nyelv ---------(interpreter/virtualis gép)-----------> Gépi kód
+                            - Byte code
+                            - IL (MSIL MS Intermediate Language)
+
+- Objektumorientált nyelvek (Bankszámla nyilvántartáson keresztül)
+
+```csharp
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var cegesBankszmla = new Bankszamla("Kerékgyártás KFT");
+
+            System.Console.WriteLine(cegesBankszmla.Nev);
+            cegesBankszmla.Jovairas(5000);
+            cegesBankszmla.Terheles(2000);
+            cegesBankszmla.Terheles(4000);
+        }
+    }
+
+    public class Bankszamla
+    {
+        private string nev;
+
+        public Bankszamla(string nev)
+        {
+            this.nev = nev;
+        }
+
+        public string Nev { get {return this.nev;} }
+
+        private int egyenleg;
+        public int Egyenleg { get {return this.egyenleg;} }
+
+        public void Terheles(int osszeg)
+        {
+            if (osszeg < 0)
+            {
+                throw new Exception("terhelni csak pozitív számot lehet");
+            }
+
+            if (Egyenleg<osszeg)
+            {
+                throw new Exception($"a terhelendő összeg {osszeg} nagyobb, mint a rendelkezésre álló összeg {egyenleg}");
+            }
+
+            egyenleg = egyenleg - osszeg;
+            System.Console.WriteLine($"{osszeg} terhelése megtörtént, új egyenleg: {egyenleg}");
+        }
+
+        public void Jovairas(int osszeg)
+        {
+            if (osszeg < 0)
+            {
+                throw new Exception("jovairni csak pozitív számot lehet");
+            }
+
+            egyenleg = egyenleg + osszeg;
+            System.Console.WriteLine($"{osszeg} jóváírása megtörtént, új egyenleg: {egyenleg}");
+        }
+    }
+```
+Eredmény
+```
+PS D:\Repos\CISSP201711\OOPDemo> dotnet run
+Kerékgyártás KFT
+5000 jóváírása megtörtént, új egyenleg: 5000
+2000 terhelése megtörtént, új egyenleg: 3000
+
+Unhandled Exception: System.Exception: a terhelendő összeg 4000 nagyobb, mint a rendelkezésre álló összeg 3000
+   at OOPDemo.Bankszamla.Terheles(Int32 osszeg) in D:\Repos\CISSP201711\OOPDemo\Program.cs:line 46
+   at OOPDemo.Program.Main(String[] args) in D:\Repos\CISSP201711\OOPDemo\Program.cs:line 14
+```
+
+### Objektum orientált programozási alapelvek
+- Encapsulation (Egységbezárás)
+  Osztályon kívülről csak az látszik, amit engedünk
+- Abstraction (Absztrakció)
+  Csak azzal foglalkozunk, ami fontos.
+- Inheritance (Leszármaztatás)
+```csharp
+    public class KamatozoBankszamla : Bankszamla
+    { //csak a kamatozással kell foglalkoznom, a Bankszamla osztály már hozza az egyenleg/jóváírás/terhelés tulajdonságokat
+
+    }
+```
+- Polimorphism (többféle változat kialakítható, az ősosztály tulajdonságai felülírhatók)
+
+### Objektumorientált programozás előnyei
+- Modularity
+- Reusable (két fontos feltétel)
+  - High Cohesion (Erős kohézió)
+    Egy osztályhoz a feladatok mennyire hasonló vagy azonos felelősségi körhöz tartoznak.
+  - Low Coupling (Gyenge csatolás)
+    (Erős) Csatolás akkor van két osztály között, ha az egyik változása esetén **nem kizárható** a másik változása.
+    Gyenge csatolás esetén a változás kizárható.
+
+```
+
+               +------------------+
+               |  Űrlap 1         |
+               |------------------|
+               |                  |
+               |                  |+------------>
+               |                  |             +
+               +------------------+             v
+                                         +---------------------+        +---------------------+
+                                         | Repository          |        |  Adatbázis          |
+                                         |---------------------|        |---------------------|
+                                         |                     |        |                     |
+               +------------------+      |  Minden adatbázis-  |        |                     |
+               |  Űrlap 2         |      |  hozzáféréssel      |        |                     |
+               |------------------|      |  kapcsolatos kód    |        |                     |
+               |                  |      |                     |+------>|                     |
+               |                  |+---->|                     |        |                     |
+               |                  |      |                     |        |                     |
+               |                  |      |                     |        |                     |
+               +------------------+      +---------------------+        |                     |
+                                                ^                       +---------------------+
+                                                |
+               +------------------+             |
+               |  Űrlap 3         |             |
+               |------------------|             +
+               |                  | +----------->
+               |                  |
+               |                  |
+               +------------------+
+                      <-------------+Erős kohézió-gyenge csatolás+------------>
+```
+
+### Object Oriented Concepts
+- Class/Object
+  - Class: a létrehozandó objektum tervrajza
+  - Object: a tervrajz alapján létrejövő konkrét építmény
+- Biztonsági szempontból ez a megoldás **fekete doboz**.
+- Az osztály/objektum másik definíciója: olyan dolog, aminek van:
+  - Állapota (state) 
+    (Egyenleg és név)
+  - Viselkedése (behaviour)
+    (Terhelés és jóváírás)
+  és
+  - Azonosítható (identity)
+    (például a rá hivatkozó referencia azonosítja)
+
+Az objektumorientált programozás előnye, hogy **felületet definiál**, amit a felhasználó kód hívni tud, és a felület alatt a megvalósítás lecserélhető.
+
+```csharp
+        static void Main(string[] args)
+        {
+            // var cegesBankszmla = new Bankszamla("Kerékgyártás KFT");
+
+            // System.Console.WriteLine(cegesBankszmla.Nev);
+            // cegesBankszmla.Jovairas(5000);
+            // cegesBankszmla.Terheles(2000);
+            // cegesBankszmla.Terheles(4000);
+
+            var kamatozoBankszmla = new KamatozoBankszamla("Kerékgyártás KFT");
+
+            System.Console.WriteLine(kamatozoBankszmla.Nev);
+            kamatozoBankszmla.Jovairas(5000);
+            kamatozoBankszmla.Terheles(2000);
+            kamatozoBankszmla.Terheles(4000);
+        }
+
+```
+Példának tekintsük mondjuk
+- a tv távirányítóját
+- rádió hangerőszabályozóját
+  - feladat: hangerőszabályzás
+  - felület: forgatni kell, hogy a hangerőt állítsuk
+  - megvalósítás: lehet elektronikus potenciométer vagy optikai szenzor. Teljesen mindegy, amíg a hangerőt állítja.
+
+### Szoftverfejlesztési módszertanok
+A szoftverfejlesztés nem valódi mérnöki folyamat, hanem sokak szerint egy kaotikus tevékenység, ami időről időre mégis eredményt hoz.
+
+![Project management](/Pics/ProjectManagement.jpg)
 

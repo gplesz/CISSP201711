@@ -711,4 +711,5 @@ Példának tekintsük mondjuk
 A szoftverfejlesztés nem valódi mérnöki folyamat, hanem sokak szerint egy kaotikus tevékenység, ami időről időre mégis eredményt hoz.
 
 ![Project management](/Pics/ProjectManagement.jpg)
-
+[Projektek sikeressége 1](https://cdn2.hubspot.net/hubfs/542571/Doomed%20from%20the%20Start.pdf?t=1513091800721)
+[Projektek sikeressége 2](https://www.versionone.com/assets/img/files/CHAOSManifesto2013.pdf)

@@ -146,3 +146,46 @@ Az operációs rendszerek tervezésénél védelmi körökbe szervezik a feladat
 - Stopped
   Amikor a folyamat végzett, vagy meg kell szakítani (hiba, nem elérhető erőforrás, stb.) A hozzárendelt erőforrások elvonhatók, újraoszthatók.
 
+### Memory
+- ROM: Read-Only Memory
+- PROM: Programmable Read-Only Memory
+- EPROM: Erasable Programmable Read-Only Memory
+- EEPROM: Electronically Erasable Programmable Read-Only Memory
+- Flash: blokkonként törölhető EEPROM
+- RAM: Random Access Memory
+  - dinamic: kapacitásokból áll, a CPU-nak időnként frissítenie kell.
+  - static: flip-flop áramkörök, nem kell a CPU-nak frissíteni. Amíg áram alatt van nem felejt. Gyorsabb és dágább.
+Cache RAM: Level1: a processzoron, Level2: static RAM
+
+### Registers
+Speciális memóriák, szinkron sebességgel dolgoznak, mint a processzor végrehajtási egysége (ALU: Arithmetic-logical unit)
+- Register addressing: amikor a porcesszor a regisztert címzi, hivatkozza (register 1)
+- Inmediate addressing: közvetlen műveletvégzés a regiszter segítségével (add 2 to register 1)
+- Direct addressing: a registerben a memóriahely címe van, amivel dolgozni kell, ahol az adat van. (a cím egy lapon van a paranccsal)
+- Indirect addressing: a registerben lévő memóriahelyen újabb cím vár minket: az a cím, ahol az adat van, amivel dolgozni kell. (a cím egy lapon van a paranccsal)
+- Base + Offset addressing: ha nem azonos lapon van az adat, akkor a lapcím + a lapon belüli cím jelenti az adat címét, amivel dolgozunk.
+
+### Primary, Secondary Storaga
+- Primary memory: "valódi memória", amit a processzor a regiszter műveletekkel eléri (gyors és drága)
+- Secondary storage: először be kell tölteni a primary memóriába, hogy használni tudjuk. (lassú és olcsó)
+
+### Virtual Memory, Virtual Storage
+Olyan másodlagos memóriák, amiket az operációs rendszer használ, segítségével elsődlegesnek látszik. Hátránya a sebessége.
+
+### I/O Devices
+- Monitor
+- Printer
+- Keyboard/Mouse
+- Modems
+- I/O structures
+  - Memory-Mapped I/O
+  - IRQ
+  - DMA
+- Firmware
+  - BIOS
+  - Device Firmware
+
+
+
+
+

@@ -241,4 +241,112 @@ Megjegyzések:
 - az első négy thread azonnal elindult, mivel a gép amin futtattam 4 processzormagot tartalmaz
 - majd lassabban, de elindult a többi szál is, mielőtt végrehajtotta volna az összes futó feladatot
 
+## Databases
+
+- Mi is az az adatbázis?
+  Adatok gyűjteménye, felhasználók által hozzáférhető módon kialakítva, lehetséges mind az adatok megtekintése, mind létrehozás és módosítás. Vagyis, az adatok, kiegészítve a hozzáférés módjával (DBMS)
+
+  - DBMS: DataBase Magement System
+
+- Relational: A túlnyomó része relációs adatbázis (1970 IBM E.F Codd)
+- Hierarchical: 
+
+```
+                                        +<----------------++------------->+
+                                        v                                 v
+                        <-----------+  com +----------->                 hu
+                        +                              +
+                        |                              |
+                        |                              |
+                        |                              |
+                        |                              |
+                        |                              |
+                        |                              |
+                        v                              |
+                                                    v
+    +<----+ microsoft.com+---->                  cisco.com
+    |                         +
+    |                         |
+    |                         |
+    |                         |
+    v                         v
+app.microsoft.com       www.microsoft.com
+```
+- object oriented
+- distributed network
+
+- SQL: (SEQUEL)
+  - [ingyenes könyv PDF-ben](https://devportal.hu/download/E-bookok/Adatkezeles%20otthon%20es%20a%20felhoben/Adatkezeles%20otthon%20es%20a%20felhoben-%20Foti-Turoczy.pdf)
+  - [ugyanez papír alapon](https://www.libri.hu/konyv/foti_marcell.adatkezeles-otthon-es-a-felhoben.html)
+
+- SQL képességek
+
+  - adatok táblázatban (két dimenziós struktúra)
+    - vízszintesen: sorok, rekordok (row)
+    - függőlegesen: oszlopok, mezők (column)
+
+    - vizszintesen ritkán változnak, függőlegesen állandóan. Az idejének nagy részét sorok létrehozása, módosítása, törlése és lekérdezése tölti ki.
+
+|Kulcs| Név         | Cím                        | Befizetés/Kifizetés | Partner     | Partner címe               |
+|    1| Kiss József | 1000 Budapest, Fő utca 1   |              +5000  | Nagy Zoltán | 2000 Szentendre Al utca 1. | 
+|    2| Kiss József | 1000 Budapest, Fő utca 1   |              +2000  | Gipsz Jakab |                            |
+|    3| Kiss József | 1000 Budapest, Fő utca 1   |              -4000  | Fő Kálmán   |                            |
+|    4| Nagy Zoltán | 2000 Szentendre Al utca 1. |              -5000  | Kiss József | 1000 Budapest, Fő utca 1   |
+|    5| Nagy Zoltán | 2000 Szentendre Al utca 1. |              +5000  | Pofá Zoltán |                            |
+|    6| Nagy Zoltán | 2000 Szentendre Al utca 1. |              +5000  | Tüdő Pál    |                            |
+
+  - Kulcs (KEY): Elsődleges kulcs (Primary key: PK)
+    A tábla kulcsa olyan adat, ami egyértelműen azonosítja a sort. Vagyis kétszer nem szerepelhet a táblázatban.
+    - identity: egy szám, ami minden sor hozzáadásával nő
+    - guid: 
+
+  - normalizálás (optimális tárolási és visszakeresési forma eléréséhez)
+    - 1NF, 2NF, 3NF
+
+Pénzmozgások
+------------
+|Kulcs| Partner1 | Befizetés/Kifizetés | Partner 2|
+|    1|        2 |              +5000  | 2 | 
+|    2| 1        |              +2000  | 3 |
+
+|    3| 1        |              -4000  | 4 |
+|    4| 2        |              -5000  | 1 |
+|    5| 2        |              +5000  | 5 |
+|    6| 2        |              +5000  | 6 |
+
+
+Partnerek
+-----------
+|Kulcs|Név         |Cím                        |
+|     1|Kiss József| 1000 Budapest, Fő utca 1  |
+|     4|Nagy Zoltán| 2000 Szentendre Al utca 1.|
+|     5|Gipsz Jakab|                           |
+|     6|Fő Kálmán  |                           |
+|     7|Pofá Zoltán|                           |
+|     8|Tüdő Pál   |                           |
+
+  - Távoli kulcs (Foreign key: FK)
+    egy másik tábla PK-jára mutató mező
+    Ez az alapja a referential integrity védelmi képességnek. Nem tartalmaz az adatbázis árvénytelen hivatkozást.
+
+  - Az adatbázis védelmi képességei
+    a lényeg, hogy ne kerülhessen be az adatbázisba érvénytelen információ
+
+```sql
+select
+	p1.Nev
+	,p2.Nev
+	,Osszeg
+from
+	Penzmozgas penz
+	inner join Partnerek p1 on p1.Kulcs = penz.Partner1
+	inner join Partnerek p2 on p2.Kulcs = penz.Partner2
+
+```
+és az eredmény:
+
+```
+Kiss Zoltán	Nagy Zoltán	5000
+Nagy Zoltán	Kiss Zoltán	-5000
+```
 

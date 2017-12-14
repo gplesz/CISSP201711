@@ -4,6 +4,8 @@ CISSP tanfolyam 2017 november-december.
 ## Segédeszközök
 - [MarkDown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 - [GitHub](https://github.com/gplesz/CISSP201711)
+- [Visual Studio Code](https://code.visualstudio.com/)
+  [nyílt forráskódú](https://github.com/Microsoft/vscode) multiplatform (Windows, linux, OsX) fejlesztőkörnyezet.
 
 ## Témakörök
 - Computing Systems
@@ -185,7 +187,58 @@ Olyan másodlagos memóriák, amiket az operációs rendszer használ, segítsé
   - BIOS
   - Device Firmware
 
+### Demo a multithreading-hez
 
+```
+dotnet new console
+```
 
+a program
+```csharp
+    class Program
+    {
+
+        private static void Tennivalo(object state)
+        {
+            System.Console.WriteLine("elindult a szálon a feladat");
+            Thread.Sleep(4000);
+            System.Console.WriteLine("megállt a szálon a feladat");
+        }
+
+        static void Main(string[] args)
+        {
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+            ThreadPool.QueueUserWorkItem(Tennivalo);
+
+            Console.ReadLine();
+        }
+    }
+```
+eredmény
+```
+elindult a folyamat
+elindult a folyamat
+elindult a folyamat
+elindult a folyamat
+elindult a folyamat
+elindult a folyamat
+elindult a folyamat
+megállt a folyamat
+megállt a folyamat
+megállt a folyamat
+megállt a folyamat
+megállt a folyamat
+megállt a folyamat
+megállt a folyamat
+```
+Megjegyzések:
+- semmilyen különleges kód nem kell a párhozamos programozáshoz
+- az első négy thread azonnal elindult, mivel a gép amin futtattam 4 processzormagot tartalmaz
+- majd lassabban, de elindult a többi szál is, mielőtt végrehajtotta volna az összes futó feladatot
 
 

@@ -8,9 +8,9 @@ namespace ThreadDemo
 
         private static void Tennivalo(object state)
         {
-            System.Console.WriteLine("elindult a folyamat");
+            System.Console.WriteLine("elindult a szálon a feladat");
             Thread.Sleep(4000);
-            System.Console.WriteLine("megállt a folyamat");
+            System.Console.WriteLine("megállt a szálon a feladat");
         }
         
 

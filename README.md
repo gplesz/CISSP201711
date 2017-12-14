@@ -73,3 +73,41 @@ Egyszerre csak egyféle biztonsági szintet kezel a rendszer. A biztonsági admi
 #### Multi State
 Egyszerre több biztonsági hozzáférést képes nyújtani. Ehhez tartalmaz védelmi mechanizmust, hogy a biztonsági szintek átlépését kivédje. Ez a mechanizmus nagyon költséges, és az ilyen rendszerek nagyon ritkák. Egyes drága MPP rendszerekhez ritkán van olyan indok, ami értelmessé teszi ezt a fajta kialakítást.
 
+### Protection rings
+Az operációs rendszerek tervezésénél védelmi körökbe szervezik a feladatokat.
+
+```
++----------------------------------------------------------------+
+|   User-level programs and applications                         |
+|----------------------------------------------------------------|
+|                                                                |
+|                                                                |
+|        +----------------------------------------------+        |
+|        |  Drivers, protocols                          |        |
+|        |----------------------------------------------|        |
+|        |                                              |        |
+|        |                                              |        |
+|        |        +--------------------------+          |        |
+|        |        |  Other OS component      |          |        |
+|        |        |--------------------------|          |        |
+|        |        |   +------------------+   |          |        |
+|        |        |   | OS kernel/memory |   |          |        |
+|        |        |   |------------------|   |          |        |
+|        |        |   |                  |   |          |        |
+|        |        |   |                  |   |          |        |
+|        |        |   |                  |   |          |        |
+|        |        |   +------------------+   |          |        |
+|        |        |                          |          |        |
+|        |        +--------------------------+          |        |
+|        |                                              |        |
+|        |                                              |        |
+|        +----------------------------------------------+        |
+|                                                                |
++----------------------------------------------------------------+
+```
+- ring 0 (legbelsőbb kör)
+- ring 1
+- ring 2
+- ring 3 (felhasználói rendszerek)
+
+

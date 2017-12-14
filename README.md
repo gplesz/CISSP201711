@@ -298,26 +298,27 @@ app.microsoft.com       www.microsoft.com
   - Kulcs (KEY): Elsődleges kulcs (Primary key: PK)
     A tábla kulcsa olyan adat, ami egyértelműen azonosítja a sort. Vagyis kétszer nem szerepelhet a táblázatban.
     - identity: egy szám, ami minden sor hozzáadásával nő
-    - guid: 
+    - guid: globális egyedi azonosító, lokálisan generált (kliens program is generálhatja), de a világon egyedi érték
 
   - normalizálás (optimális tárolási és visszakeresési forma eléréséhez)
-    - 1NF, 2NF, 3NF
+    - 1NF, 2NF, 3NF [Példa](https://support.microsoft.com/hu-hu/help/283878/description-of-the-database-normalization-basics)
 
 Pénzmozgások
-------------
+---
 |Kulcs| Partner1 | Befizetés/Kifizetés | Partner 2|
-|    1|        2 |              +5000  | 2 | 
-|    2| 1        |              +2000  | 3 |
-
-|    3| 1        |              -4000  | 4 |
-|    4| 2        |              -5000  | 1 |
-|    5| 2        |              +5000  | 5 |
-|    6| 2        |              +5000  | 6 |
+|-|-|-|-|
+|    1|        4 |              +5000  | 2 | 
+|    4|        1 |              +2000  | 3 |
+|    5|        1 |              -4000  | 4 |
+|    6|        2 |              -5000  | 1 |
+|    7|        2 |              +5000  | 5 |
+|    8|        2 |              +5000  | 6 |
 
 
 Partnerek
------------
+---
 |Kulcs|Név         |Cím                        |
+|-|-|-|
 |     1|Kiss József| 1000 Budapest, Fő utca 1  |
 |     4|Nagy Zoltán| 2000 Szentendre Al utca 1.|
 |     5|Gipsz Jakab|                           |
@@ -343,8 +344,8 @@ from
 	inner join Partnerek p2 on p2.Kulcs = penz.Partner2
 
 ```
-és az eredmény:
 
+és az eredmény:
 ```
 Kiss Zoltán	Nagy Zoltán	5000
 Nagy Zoltán	Kiss Zoltán	-5000

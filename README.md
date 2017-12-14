@@ -110,4 +110,4 @@ Az operációs rendszerek tervezésénél védelmi körökbe szervezik a feladat
 - ring 2
 - ring 3 (felhasználói rendszerek)
 
-
+### Process states

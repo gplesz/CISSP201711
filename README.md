@@ -247,6 +247,13 @@ Megjegyzések:
   Adatok gyűjteménye, felhasználók által hozzáférhető módon kialakítva, lehetséges mind az adatok megtekintése, mind létrehozás és módosítás. Vagyis, az adatok, kiegészítve a hozzáférés módjával (DBMS)
 
   - DBMS: DataBase Magement System
+    - program, ami az adathozzáférést vezérli (létrehozás, módosítás, törlés, lekérdezés)
+    - adatmentések és a mentések visszatöltése (Backup and recovery)
+    - lekérdező nyelv biztosítása (SQL)
+      - SQL/DQL: Data Query Language - a SELECT utasítás
+      - SQL/DML: Data Manipulation Language: INSERT, UPDATE, DELETE
+    - adatbázis struktúra karbantartása (SQL/DDL: Data Definition language)
+    - az adathozzáférések szabályozása (SQL/DCL: Data Control language)
 
 - Relational: A túlnyomó része relációs adatbázis (1970 IBM E.F Codd)
 - Hierarchical: 
@@ -275,15 +282,15 @@ app.microsoft.com       www.microsoft.com
 - object oriented
 - distributed network
 
-- SQL: (SEQUEL)
+- SQL: (SEQUEL: Structured English Query Language)
   - [ingyenes könyv PDF-ben](https://devportal.hu/download/E-bookok/Adatkezeles%20otthon%20es%20a%20felhoben/Adatkezeles%20otthon%20es%20a%20felhoben-%20Foti-Turoczy.pdf)
   - [ugyanez papír alapon](https://www.libri.hu/konyv/foti_marcell.adatkezeles-otthon-es-a-felhoben.html)
 
-- SQL képességek
+### SQL képességek
 
-  - adatok táblázatban (két dimenziós struktúra)
-    - vízszintesen: sorok, rekordok (row)
-    - függőlegesen: oszlopok, mezők (column)
+  - adatok táblázatban (két dimenziós struktúra: table=relation) 
+    - vízszintesen: sorok, rekordok (row=record=tuple)
+    - függőlegesen: oszlopok, mezők (column=field=attribute)
 
     - vizszintesen ritkán változnak, függőlegesen állandóan. Az idejének nagy részét sorok létrehozása, módosítása, törlése és lekérdezése tölti ki.
 
@@ -297,8 +304,10 @@ app.microsoft.com       www.microsoft.com
 
   - Kulcs (KEY): Elsődleges kulcs (Primary key: PK)
     A tábla kulcsa olyan adat, ami egyértelműen azonosítja a sort. Vagyis kétszer nem szerepelhet a táblázatban.
+    Például (de nem kizárólagosan):
     - identity: egy szám, ami minden sor hozzáadásával nő
     - guid: globális egyedi azonosító, lokálisan generált (kliens program is generálhatja), de a világon egyedi érték
+    - ez biztosítja az **Entity integrity service**-t
 
   - normalizálás (optimális tárolási és visszakeresési forma eléréséhez)
     - 1NF, 2NF, 3NF [Példa](https://support.microsoft.com/hu-hu/help/283878/description-of-the-database-normalization-basics)
@@ -328,11 +337,11 @@ Partnerek
 
   - Távoli kulcs (Foreign key: FK)
     egy másik tábla PK-jára mutató mező
-    Ez az alapja a referential integrity védelmi képességnek. Nem tartalmaz az adatbázis árvénytelen hivatkozást.
+    Ez az alapja a **referential integrity** védelmi képességnek. Nem tartalmaz az adatbázis árvénytelen hivatkozást.
 
-  - Az adatbázis védelmi képességei
-    a lényeg, hogy ne kerülhessen be az adatbázisba érvénytelen információ
 
+DQL példa
+---
 ```sql
 select
 	p1.Nev
@@ -350,4 +359,149 @@ from
 Kiss Zoltán	Nagy Zoltán	5000
 Nagy Zoltán	Kiss Zoltán	-5000
 ```
+
+DML példák
+---
+```sql
+update 
+	Partnerek
+set
+	Nev='Kiss Lajos'
+where
+	Kulcs=1
+```
+
+```sql
+insert
+	Partnerek
+	(Nev, Cim) 
+values
+	('Gipsz Jakab', '3000 Nem tudom hol')
+```
+
+```sql
+delete
+	Partnerek
+where
+	Kulcs=5
+```
+
+
+
+
+### Database Schema (definiálja az adatbázis felépítését, struktúráját)
+- Tables
+- Relationships (táblák közti kapcsolatok, FK-k)
+- Business rules
+- Domains
+
+### Az adatbázis védelmi képességei (integrity services)
+    a lényeg, hogy ne kerülhessen be az adatbázisba érvénytelen információ
+- Entity integrity
+  garantálja, hogy minden sornak van egyedi azonosítója (PK)
+- Referential integrity
+  biztosítja, hogy az FK mezőben lévő információ létezó PK-ra m utat.
+  (felvitelkor, módosításkor és törléskor )
+- Semantic integrity
+  Biztosítja, hogy a strukturalis és szemantikus szabályok ki legyenek kényszerítve
+  - not null
+  - check constraint
+
+### Adatbázis nézetek (Views)
+Az adatbázis elé egy olyan felületet (virtuális táblázatot) generálhatunk, amihez saját jogosultságokat lehet rendelni.
+
+példa (egyben DDL példák):
+létrehozás
+```sql
+drop view PezmozgasokNezet
+
+create view 
+	PenzmozgasokNezet
+as
+select
+	p1.Nev Partner1Nev
+	,p2.Nev Partner2Nev
+	,Osszeg
+from
+	Penzmozgas penz
+	inner join Partnerek p1 on p1.Kulcs = penz.Partner1
+	inner join Partnerek p2 on p2.Kulcs = penz.Partner2
+```
+
+törlés
+```sql
+drop view PezmozgasokNezet
+```
+
+### Database integrity operations (transactions)
+a tranzakciók jellemzői
+- Atomic: nem részekre bontható, a benne foglalt utasítások összetartoznak, vagy együtt hajtódnak végre, vagy nem hajtódnak végre.
+- Consistency: konzisztencia megtartása, a tranzakció az adatbázist a korábbi konzisztens (az integritási szabályoknak megfelelő) állapotból konzisztens (az integritási szabályoknak megfelelő) állapotba viszi
+- Isolation: elszigetelt végrehajtás, amit a tranzakcióban végzünk, azt mások addig, amíg nem véglegesítettük nem láthatják.
+- Durable: tartós, ha a tranzakciót lezártuk (COMMIT paranccsal) akkor annak az eredménye tartósan megmarad.
+
+```sql
+begin transaction
+insert
+	Partnerek
+	(Nev, Cim) 
+values
+	('Gipsz Jakab', '3000 Nem tudom hol')
+
+
+select * from Partnerek
+
+insert
+	Penzmozgas
+	(Partner1, Partner2, Osszeg)
+values
+	(1,8,-5000)
+
+--rollback           --ezzel visszavonnánk, nem csinálna semmit
+commit transaction   --ezzel lezárjuk, minden módosítás végleges
+```
+
+### Data Dictionary
+- központosítottan tárolt adat definíciók, schemák és hivatkozási kulcsok
+- leíró adatok (Metadata)
+- szabályok (Rulas)
+
+### Database communication
+- ODBC (Open Database Connectivity)
+- OLE DB (Object Linking and Embedding)
+- ADO (ActiveX Data Object)
+- (EF Entity Framework)
+- JDBC (Java Database Connectivity)
+- XML - Extensible Markup Language
+
+```xml
+<Parner>
+  <Nev Value="Gipsz Jakab" />
+  <Cim>3000 Nem tudom hol</Cim>
+</Partner>
+```
+- (JSON - JavaScript Object Notation)
+```json
+{
+    "Nev": "Gipsz Jakab",
+    "Cim": "3000 Nem tudom hol"
+}
+```
+
+### Data Warehousing (Adattárház)
+- Különböző adatok különböző forrásokból és/vagy adatbázisból
+- Az adatok denormalizáltak (például előre felösszegezett részösszegek)
+- Adatbányászat (Data mining)
+
+### Biztonsági kérdések
+- Concurrency/LOCK konkurrens módosítás ellen a lock mechanizmusok 
+- database partitioning: a rész adatbázisokon lehet jogosultságot osztani
+- Polyinstantiating: azonos kulccsal több rekord létrehozása, hogy különböző jogosultsági szinteken állók ne tudjanak következtetni az összegzésekből például.
+- Database contamination: adatszennyezés, ugyanebből a célból
+
+figyelem: ezek implementálása nagyon komoly kihívás
+
+- az adatbázis perzisztens tárolásánál figyelni kell arra, hogy ne csak az OS biztonsági képességeiben bízzunk. (titkosított mentések, titkosított partíció az adatbázisfile-oknak)
+- többszintű biztonsági rendszer esetén szükséges az adatokat (memóriában és perzisztens tárolón is) fail safe. Azaz, ha valamilyen hiba történik, akkor a rendszer olyan állapotba kerül, hogy emberi beavatkozás nélkül nem használható.
+
 

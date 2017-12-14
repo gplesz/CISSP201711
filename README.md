@@ -111,3 +111,38 @@ Az operációs rendszerek tervezésénél védelmi körökbe szervezik a feladat
 - ring 3 (felhasználói rendszerek)
 
 ### Process states
+
+```
+                   Process needs another time slice
+ New process    <--------------------------------------+^                   Stopped
+      +         +                                       |                       ^
+      |         |                                       |        When process   |
+      |         |                                       |        finished or    |
+      |         v      If CPU is available              +        terminated     +
+      +-----> Ready +------------------------------> Running  +----------------->
+                                                     ^   +
+                                        +------------+   |
+                                        |                |
+                                        |                | block for I/O,
+                                        |                | resources
+                                        |unblocked       |
+                                        |                |
+                                        |                |
+                                        |                |
+                                        +                |
+                                                         |
+                                     Waiting <-----------+
+```
+
+
+- Ready
+  A folyamat kész arra, hogy elkezdje a végrehajtást. Ha lesz szabad processzor, akkor ezt a folyamatot végre is hajthatja. A hozzárendelt erőforrások ki vannak neki osztva.
+- Waiting
+  A folyamatunk külső erőforrásra vár. A futása addig, amíg az erőforráshozzáférés meg nem történik, blokkolva van.
+- Running
+  A folyamat CPU végrehajtás közben van. Addig tart, amíg (a) nem végez, (b) le nem jár az időszelete (c) egy erőforráshozzáférés miatt blokkolt állapotba kerül.
+- Supervisory
+  Amikor magasabb jogok szükségesek (egy körrel beljebb kellene kerülni), driver telepítés, stb.
+- Stopped
+  Amikor a folyamat végzett, vagy meg kell szakítani (hiba, nem elérhető erőforrás, stb.) A hozzárendelt erőforrások elvonhatók, újraoszthatók.
+

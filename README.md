@@ -964,6 +964,7 @@ A rendszer üzemeltetőjével szemben támasztott elvárások gyűjteménye.
 - Failover time (áthidalási idő, amennyiben redundancia van a rendszerben)
 
 # Input Validation
+Beviteli adatok ellenőrzése. Cél: a nem használható adatok, be se kerüljenek a rendszerbe.
 
 dotnet template segítségével webalkalmazást készítettünk
 ```
@@ -971,5 +972,139 @@ dotnet new mvc --auth Individual --use-local-db
 ```
 ## Data Type
 A kapott adat típusa megfelelő. (pl.: Szám, szöveg, dátum, stb.)
+## Data range
+A kapott adat a megadott határokon belül van
+## Data formatting
+A kapott adat megfelel formai szabályoknak (pl. email cím)
+## ID Number
+Azonosító, telefonszám, stb. adatok bevitelénél
 
-# Expert systems
+# Good Coding Practices
+## Least privilege
+Mindig csak azokat az erőforrásokat kell elindítani, megnyitni, stb., amik valóban szükségesek. Ne futtassuk az alkalmazásunkat admin-ként.
+
+## Hiding secrets
+Nem szabad a titkokat napvilágra engedni. Titkos adatokat nem szabad nem titkosított módon tárolni.
+
+## Layered defense
+Nincs egyetlen megoldás, használjunk olyan sok egymást támogató megoldást, amennyit csak lehet.
+
+## Weakest link
+Részegységenként kezeljük a biztonsági rendszert, az egyes függőségeket külön-külön. Az összetett rendszer olyan biztonságos, mint a leggyengébb részegysége.
+
+# Expert systems (Szakértői rendszerek)
+Több tanulmány kimutatta, egy jól beállított szakértői rendszer jobb döntéseket képes hozni, mint egy emberi szakértő.
+
+- nem terheli emóció
+- mindig rendelkezésre áll
+
+## Knowledge base systems
+Két részből állnak
+
+### Knowledge base
+- ha a hurrikán 4-es vagy annál magasabb kategóriájú vihar, akkor az árvíz eléri a tengerszint feletti 20 láb magasságot
+- Ha a hurrikánnal járó szél meghaladja a 120 mérföldet, akkor a favázas épületek megsemmisülnek
+- Ha a hurrikán szezon később kezdődik, akkor a vihar erősebb lesz, ha megközelíti a partot.
+
+### Inference engine (következtető motor)
+4-es kategóriájú vihar érkezik + a szél sebessége 140 mérföld => evakuálás
+
+## Forward chaining
+megadjuk a megfelelő adatokat, majd a rendszer levonja a következtetéseket
+
+## Backward chaining
+Egy elméletet képes ellenőrizni: megadjuk a végeredményt, és visszaadja, hogy ehhez milyen bemeneti adatok esetén következik a végeredmény.
+
+## Fuzzy logic
+
+példa:
+
+```
+            ^
+Igaz    +---+--+
+        |      |
+        |      |
+        |      +-----+
+        |            |
+        |            |
+        |            |
+        |            +------+
+        |                   |
+        |                   |
+        |                   +------+
+        |                          |
+        |                          |
+        |                          |
+        |                          |
+        |                          |
+        |                          |
+        |                          +----+
+        |                               |
+        |                               |
+        |                               |
+        |                               |
+Hamis   +----5----10---15---20----25---30---35----40------------------------------------>
+```
+
+- Nem csak igaz és hamis létezik, hanem átmenet: egy igazságért, annak a bizonyosságnak a foka, hogy az adott állítás igaz vagy nem.
+- Fuzzyfication
+  Egy függvény, ami minden bemeneti elemhez és állításhoz az igazságértéket rendeli.
+- Inference
+  Hozzárendeli az igazságértéket az adott állításokból összeállított következtetéshez.
+- Composition
+  Minden lehetséges szabálycsomagot összeállít.
+- Defuzzication 
+  Az adott szabálycsomag igazságértékét számolja ki.
+
+Sikerek:
+- Japán gyorsvasút fékezőrendszere (1985 Hitachi)
+- Altatási mélység szabályozás
+
+## Artificial Neural Networks
+Lineáris számítási igényű, eredménnyel tanítható
+```                                                                                                 Tanítás
+        +---+                                                      +--+
+        | 1 | +                 +---+                   +--------->| 1|                             1 <- ezen nem kell sokat változtatni 
+        +---+ |                 |   | +-----------------+          +--+
+              ++----0.7---->--> |   |
+              |                 +---+
+        +---+  |                                                   +--+
+        | 0 |+->                                                   | 1|                             0 <- Az ide vezető útvonalak súlyát növelni kell 
+        +---+  |                                   +-------------->|  |
+              |                                   ^               +--+
+              |                                   |
+        +---+  |                +----+             |
+        | 0 |+>+----0.1-------> |    |+------------+
+        +---+         ^         |    |             |               +--+
+                      |         +----+             |               | 0|                             1 <- az ide vezető útvonalak súlyát pedig csökkenteni kell
+                      |                            +-------------> |  |
+        +---+         |                                            +--+
+        | 1 |         +
+        |   |+-------->+
+        +---+          |        +-----+                            +--+
+                       +------->|     |+-------------------------->| 1|                              1 <-ezen nem kell sokat változtatni
+        +---+          ^        |     |                            +--+
+        | 0 |          |        +-----+
+        |   |+-------->+
+        +---+
+
+  Input réteg              Számítási réteg                    Output réteg
+```
+Három réteg
+- Input
+- Számítási
+- Output
+
+- A számítási réteg több rétegből állhat.
+- Az egyes "neuronok" értékeit a kapcsolatok súlyával megszorozva (lineáris kombinációt véve) adja a cél neuron állapotát
+- Az eredmény és az elvárt eredmény különbségét felhasználva
+
+### igazolt eredmények
+- hangfelismerés
+- kézírás felismerés
+- arcfelismerés
+- időjárás előrejelzés
+- összefüggések/következmények feltárása
+
+## DSS: Decision Support Systems
+Nem műveletet végez hanem információt szolgáltat. Gyakran szakértői rendszer van mögötte. Biztonsági alkalmazásokban is használják.

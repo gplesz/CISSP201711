@@ -858,4 +858,110 @@ Ha a fejlesztés elkészült, akkor ez befogadja.
 - Configuration status accounting
 - Configuration audit
 
+# Software Testing
+## Methods
+- Black-box
+  nem ismerjük a belső felépítést (forráskódot)
+- White-box
+  birtokában vagyunk a forráskódnak.
+- Gray-box
+## Static/Dynamic
+- Dynamic
+  a rendszert működés közben teszteljük
+- Static
+  a rendszer forráskódját elemzőprogramokkal vizsgáljuk
+## Testing types
+- Unit test
+  Egyszerre egy meghatározott részt tesztelünk, rögzített körülményekkel
+- Integration test
+  Az együttműködő részek mőködését vizsgáljuk a követelmények szerint.
+- Acceptance
+  Vizsgáljuk, hogy a rendszer megfelel-e a felhasználó/ügyfél kéréseinek.
+- Regression
+  Egy-egy változás után a rendszerünk még mindig megfelel-e képességekben (kiszolgált funkciókban, működésben), teljesítményben és biztonsági kérdésekben az elvártaknak.
 
+# API (Application Programmint Interface)
+Szolgáltatás használatához ad egy felületet, amit nem egy felhasználó (ember) hanem egy alkalmazás ér el (pl.: email szolgáltató/adatbázis/felhőszolgáltatás). A külső szolgáltatóknál azonosítani kell magunkat, hogy jogosultak legyünk használni a szolgáltatást. Az azonosításhoz pedig titkot kell használni (név+jelszó, api kulcs, stb.)
+
+```
+        +---------------------+                                           +------------------+
+        | Szolgáltatás        |                                           | Alkalmazás       |
+        |---------------------|                                           |------------------|
+        |                     |                                           |                  |
+        |                     |                                           |                  |
+        |                     |                                           |                  |
+        |                     |                                           |                  |
+        |           +---------+                                           |                  |
+        |           | API     |<--------HTTP/HTTPS-----------------------+|                  |
+        |           |---------|                                           |                  |
+        |           |         |+----XML/JSON----------------------------->|                  |
+        |           |         |                                           |                  |
+        +-----------+---------+                                           +------------------+
+```
+A titkokra nagyon kell vigyázni! A titkokat
+
+pl:
+- fejlesztés közben a fejlesztőnek az eléréshez használnia kell
+- a tesztrendszeren teszteléshez használni kell
+- az éles rendszeren használni kell
+
+DE 
+- a fejlesztőnek nem feltétlenül kell tudnia
+- a tesztelőnek nem feltétlenül kell tudnia
+- a felhasználónak nem feltétlenül kell tudnia
+
+Első lépés: a [forráskódtól/telepítéstől függetleníteni](http://netacademia.blog.hu/2016/05/14/hogy_kerulhetjuk_el_a_szoftverpusztulast_12factor_app_3_beallitasok_konfiguraciokezeles) kell!
+
+A felhőszolgáltatók lehetőséget adnak az alkalmazásbeállítások felülírására, így nem kell a telepítésnek a kulcsokat/titkokat tartalmaznia.
+
+De használhatjuk a [Docker secret](https://docs.docker.com/engine/swarm/secrets/) megoldását, vagy az Azure-ban a [key vault](https://azure.microsoft.com/en-us/services/key-vault/).
+
+A lényeg: sem a forráskód, sem a telepítő csomag ne tartalmazzon titkokat!
+
+# Code repositories
+- A hozzáférési jogosultságok kialakítása és ellenőrzése. A lekérdezési és módosítási jogosultságok megfelelő kezelése.
+- Titok nem kerülhet be a kódtárba!!!!!
+
+# DevOp
+[12 tényezős alkalmazásfejlesztés](http://netacademia.blog.hu/2016/04/16/hogy_kerulhetuk_el_a_szoftverpusztulast_12factor_app_1_a_kodbazis)
+[12 Factor App](https://12factor.net/)
+
+```
+
+                    +----------------------------------+
+    +----------------------+                            |
+    |                |     |                            |
+    |                |     |                            |
+    | Quality        |     |                            |
+    |  Assurance     |     |                            |
+    |                |     |       Software Development |
+    |                |     |                            |
++---|----------------|--+  |                            |
+|   |                |XX|  |                            |
+|   |                |XX|  |                            |
+|   +----------------------+                            |
+|                    |  |                               |
+|                    |  |                               |
+|                    +----------------------------------+
+|  Operations           |
+|                       |
+|                       |
++-----------------------+
+```
+Nincs külön fejlesztés, üzemeltetés és minőségbiztosítás, hanem a feladat az, hogy minőségileg biztosított kockázatmentes és nagyon sűrű telepítés és biztonságos üzemeltetés jöjjön létre.
+
+# SLA - Service Level Agreements
+A rendszer üzemeltetőjével szemben támasztott elvárások gyűjteménye.
+- System Uptime (Rendszer rendelkezésreállása -a teljes működési idő százalékában)
+  Példa: 1 nap 24 óra, 24*60=1440 perc, 1440*60=86400 másodperc. Ennek 1%-a: 864 másodperc=14 perc 24 másodperc.
+  99%: napi 14 perc 24 másodperc maximális kiesés
+  99.9%: napi 1 perc 26,4 másodperc
+  99.99%: napi max 8,64 másodperc
+- Maximum consecutive downtime (Maximális egybefüggő állásidő - másodpercben, percben, stb.)
+- Peak load (legnagyobb terhelés)
+- Average load (átlagos terhelés)
+- Responsibility for diagnostics (A diagnosztikáért felelős)
+- Failover time (áthidalási idő, amennyiben redundancia van a rendszerben)
+
+
+# Expert systems

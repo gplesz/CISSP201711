@@ -843,3 +843,19 @@ A fejlesztők és a felhasználók ellenőrzik, hogy a rendszer az általános, 
 ## Maintenance and change management
 A rendszer üzembehelyezésétől kezdve folyamatosan biztosítani kell a működőképességet változó környezetben. Fontos, hogy minden változás formális változás felügyeleti programban történik.
 
+# Change Management
+## Request control
+Ki kérheti, költség/előny analízis, prioritás meghatározása.
+## Change control
+A fejlesztő elemzi, teszteli, dokumentálja és a telepítéshez _eszközt ad_.
+## Release control
+Ha a fejlesztés elkészült, akkor ez befogadja. 
+- Fontos lépés annak ellenőrzése, hogy a fejlesztés során használt debug kapcsolók és egyéb hibakezeléshez használt eszközök kikerültek az eredményből. 
+- Acceptance testing: a változás a felhasználók számára érthető és használható
+## Security administration
+- Configuration identification
+- Configuration control
+- Configuration status accounting
+- Configuration audit
+
+

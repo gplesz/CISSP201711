@@ -714,3 +714,91 @@ A szoftverfejlesztés nem valódi mérnöki folyamat, hanem sokak szerint egy ka
 - [Projektek sikeressége 2](https://www.versionone.com/assets/img/files/CHAOSManifesto2013.pdf)
 
 # Szoftverfejlesztési módszertanok / életciklus modellek
+
+## két fontos állítás
+- A módszertan használata növeli az elkészült rendszer minőségét. A nem megfelelő, vagy nem nem megfelelően használt módszertan azonban nem garantál semmit. (Nem biztosítja a projekt üzleti és/vagy felhasználói elégedettségi sikerét)
+
+- Minden szoftver fejlesztést (előállítást) végző szervezet sorban ugyanazokon a fázisokon megy keresztül. Az elkészül szoftver minősége a szoftver (előállítási) folyamat minőségén múlik. (CMM Capability Maturity Model)
+
+## Waterfall (vízesés) model (1970 Winston Royce)
+[wikipédia cikk] https://en.wikipedia.org/wiki/Waterfall_model
+- Amíg el nem készül egy fázis, addig nem lépünk tovább
+- Ha egy fázisról elléptünk, visszafelé sosem lépünk
+1. Rendszer követelmények
+2. Szoftver követelmények
+3. Előzetes tervek
+4. Részletes tervek készítése
+5. Fejlesztés és hibajavítás
+6. Tesztelés
+7. Üzemeltetés
+
+Továbbfejlesztés: egyet vissza lehet lépni
+Módosított:
+- továbblépés előtt ellenőrzés
+  - Verification: a követelményekkel szemben
+  - Validation: a való világgal szemben
+
+Nem lett túl sikeres, mire elkészült, addigra elterjedt a
+
+## Spiral model (1988 Barry Boehm)
+Négy terület 
+
+[Összefoglaló kép](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Spiral_model_%28Boehm%2C_1988%29.svg/333px-Spiral_model_%28Boehm%2C_1988%29.svg.png
+)
+
+- Célok, alternatívák és keretek meghatározása
+- Alternatívák elemzése, kockázatok azonosítása és megszüntetése
+- Fejlesztés és ellenőrzés
+- Következő fázis tervezés
+
+Iteratív fejlesztési módszertan, felkészül a szervezet arra a lehetőségre, hogy az első alkalommal nem sikerül tökéletes végeredményt előállítani.
+
+## Agile (agilis) szoftverfejlesztés
+
+## [Kiindulási elvek](http://agilemanifesto.org/iso/hu/manifesto.html)
+A jobb oldalon szereplő fogalmak értékesek, de a baloldalon szereplők még értékesebbek.
+
+- _Egyének és együttműködésük_ a folyamatok és eszközök helyett
+- _Működő szoftver_ az átfogó dokumentáció helyett
+- _Együttműködés az ügyféllel_ a szerződés érvényesítése helyett
+- _Reagálás a változásokra_ a terv követése helyett.
+
+## [Alapelvek](http://agilemanifesto.org/iso/hu/principles.html)
+Az Agilis Kiáltványt alkotó elvek
+
+- Legfontosabbnak azt tartjuk, hogy az ügyfél elégedettségét a működő szoftver mielőbbi és folyamatos szállításával vívjuk ki.
+- Elfogadjuk, hogy a követelmények változhatnak akár a fejlesztés vége felé is. Az agilis eljárások a változásból versenyelőnyt kovácsolnak az ügyfél számára.
+- Szállíts működő szoftvert gyakran, azaz néhány hetenként vagy havonként, lehetőség szerint a gyakoribb szállítást választva.
+- Az üzleti szakértők és a szoftverfejlesztők dolgozzanak együtt minden nap, a projekt teljes időtartamában.
+- Építsd a projektet sikerorientált egyénekre. Biztosítsd számukra a szükséges környezetet és támogatást, és bízz meg bennük, hogy elvégzik a munkát.
+- A leghatásosabb és leghatékonyabb módszer az információ átadásának a fejlesztési csapaton belül, a személyes beszélgetés.
+- A működő szoftver az elsődleges mércéje az előrehaladásnak.
+- Az agilis eljárások a fenntartható fejlesztést pártolják. Fontos, hogy a szponzorok, a fejlesztők és a felhasználók folytonosan képesek legyenek tartani egy állandó ütemet.
+- A műszaki kiválóság és a jó terv folyamatos szem előtt tartása fokozza az agilitást.
+- Elengedhetetlen az egyszerűség, azaz az elvégezetlen munkamennyiség maximalizálásának művészete.
+- A legjobb architektúrák, követelmények és rendszertervek az önszerveződő csapatoktól származnak.
+- A csapat rendszeresen mérlegeli, hogy miképpen lehet emelni a hatékonyságot, és ehhez hangolja és igazítja az működését.
+
+# Software Capability Maturity Model (SCMM)
+Minden szoftver fejlesztést (előállítást) végző szervezet sorban ugyanazokon a fázisokon megy keresztül. Az elkészül szoftver minősége a szoftver (előállítási) folyamat minőségén múlik. (CMM Capability Maturity Model)
+
+## Initial (Level 1)
+Fekete doboz, az eredmény előrejelezhetetlen, a siker pedig egyéni odafigyelés és erőfeszítés eredménye.
+
+## Repetable (Level 2)
+Fekete dobozok sorozata. Van kód újrafelhasználás, _hasonló_ projektek esetén megismétlődik az eredmény, az alpfető fejlesztési folyamat felismerhető.
+
+## Defined (Level 3)
+Szabványos: nincs fekete doboz, a folyamat _áttekinthető_. A folyamat dokumentált, szabványosított, és szoftver előállításhoz minden projekt a szervezet szabványos folyamatait használja.
+
+## Managed (Level 4)
+Előrejelezhető: A folyamat és a termék mennyiségi mérőszámokkal ellenőrzött. A folyamat méréséhez és megítéléséhez részletes adatok állnak rendelkezésre.
+
+## Optimizing (Level 5)
+Folyamatosan fejlődő: A folyamat részei cserélődnek, a rossz kikerül.
+
+
+
+
+
+

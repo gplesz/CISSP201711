@@ -809,8 +809,37 @@ Előrejelezhető: A folyamat és a termék mennyiségi mérőszámokkal ellenőr
 ## Optimizing (Level 5)
 Folyamatosan fejlődő: A folyamat részei cserélődnek, a rossz kikerül.
 
+# System Development Life Cycle (SDLC)
+A biztonsági szempontokat a rendszer teljes életciklusa során érvényesíteni kell.
+## Conceptual definition
+Egyszerű definíció, amit minden _érdekelt fél_ elfogad. (Pl. Fejlesztők, ügyfelek, vezetők)
 
+- Tisztázza a rendszer célját és az alapvető követelményeket.
+- Nem kell, hogy hosszabb legyen néhány bekezdésnél.
 
+## Functional requirement determination
+Egy lista a fejlesztendő rendszer képességeiről. Fontos, hogy minden _érdekelt fél_ elfogadja.
+Ez adja az alapot a fejlesztéshez, és a fejlesztés végén jó eszköz, az eredmény ellenőrzéséhez.
 
+## Control specification development
+- Tervezni kell, hogy csak a jogosult felhasználók érhessék el a rendszert, és ők se léphessék túl a jogosultságukat.
+- A bizalmas adatokat biztosítani kell megfelelő titkosítással.
+- A számonkérhetőség és nyomozhatóság érdekében a rendszernek megfelelő _naplót_ kell vezetnie.
+- A rendszer rendelkezésreállását a fontosságának megfelelően kell biztosítani.
 
+Ez a tevékenység nem egyszeri alkalom, ha változik a terv újra kell végezni.
+
+## Design review
+A működési struktúra (pl. üzemeltetési környezet) elemei közti kommunikáció meghatározása, kezdeti ütemtervek kidolgozása.
+
+Ha a terv kész, akkor az összes résztvevővel felül kell vizsgáltatni, hogy a tervek jók-e?
+
+## Code review walktrhough
+A fejlesztés során érdemes a fejlesztett kódot több szemmel megvizsgálni.
+
+## System tests review
+A fejlesztők és a felhasználók ellenőrzik, hogy a rendszer az általános, és a szokatlan/ritka feltételek mellett is az elvárt eredményt adja. A forgatókönyveket előre rögzítik.
+
+## Maintenance and change management
+A rendszer üzembehelyezésétől kezdve folyamatosan biztosítani kell a működőképességet változó környezetben. Fontos, hogy minden változás formális változás felügyeleti programban történik.
 

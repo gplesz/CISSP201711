@@ -1015,7 +1015,7 @@ megadjuk a megfelelő adatokat, majd a rendszer levonja a következtetéseket
 ## Backward chaining
 Egy elméletet képes ellenőrizni: megadjuk a végeredményt, és visszaadja, hogy ehhez milyen bemeneti adatok esetén következik a végeredmény.
 
-## Fuzzy logic
+## Fuzzy logic ([elmosódott halmazok logikája](https://hu.wikipedia.org/wiki/Elmos%C3%B3dott_halmazok_logik%C3%A1ja))
 
 példa:
 
@@ -1063,7 +1063,7 @@ Sikerek:
 lásd: [Philips kapitány (Captain Phillips, 2013, Tom Hanks)](https://www.youtube.com/watch?v=vnjOjTzrjOw)
 Isty: eredeti pilóta neve: Chesley B. Sullenbergert
 
-## Artificial Neural Networks
+## [Artificial Neural Networks](https://en.wikipedia.org/wiki/Artificial_neural_network) ([Mesterséges neuronhálózatok](https://hu.wikipedia.org/wiki/Neur%C3%A1lis_h%C3%A1l%C3%B3zat))
 Lineáris számítási igényű, eredménnyel tanítható
 ```                                                                                                 Tanítás
         +---+                                                      +--+

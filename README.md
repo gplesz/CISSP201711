@@ -963,5 +963,13 @@ A rendszer üzemeltetőjével szemben támasztott elvárások gyűjteménye.
 - Responsibility for diagnostics (A diagnosztikáért felelős)
 - Failover time (áthidalási idő, amennyiben redundancia van a rendszerben)
 
+# Input Validation
+
+dotnet template segítségével webalkalmazást készítettünk
+```
+dotnet new mvc --auth Individual --use-local-db
+```
+## Data Type
+A kapott adat típusa megfelelő. (pl.: Szám, szöveg, dátum, stb.)
 
 # Expert systems

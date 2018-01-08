@@ -19,7 +19,6 @@ namespace OOPDemo
             kamatozoBankszmla.Jovairas(5000);
             kamatozoBankszmla.Terheles(2000);
             kamatozoBankszmla.Terheles(4000);
-
         }
     }
 

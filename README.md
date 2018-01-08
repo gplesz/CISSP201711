@@ -387,9 +387,6 @@ where
 	Kulcs=5
 ```
 
-
-
-
 ### Database Schema (definiálja az adatbázis felépítését, struktúráját)
 - Tables
 - Relationships (táblák közti kapcsolatok, FK-k)
@@ -715,3 +712,5 @@ A szoftverfejlesztés nem valódi mérnöki folyamat, hanem sokak szerint egy ka
 
 - [Projektek sikeressége 1](https://cdn2.hubspot.net/hubfs/542571/Doomed%20from%20the%20Start.pdf?t=1513091800721)
 - [Projektek sikeressége 2](https://www.versionone.com/assets/img/files/CHAOSManifesto2013.pdf)
+
+# Szoftverfejlesztési módszertanok / életciklus modellek

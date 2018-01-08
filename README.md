@@ -779,7 +779,19 @@ Az Agilis Kiáltványt alkotó elvek
 - A legjobb architektúrák, követelmények és rendszertervek az önszerveződő csapatoktól származnak.
 - A csapat rendszeresen mérlegeli, hogy miképpen lehet emelni a hatékonyságot, és ehhez hangolja és igazítja az működését.
 
+## IDEAL model
+[wikipédia cikk](https://en.wikipedia.org/wiki/IDEAL_model)
+
+[pdf](https://www.sei.cmu.edu/library/assets/idealmodel.pdf)
+
+- Initial
+- Diagnosing
+- Establishing
+- Acting
+- Learning
+
 # Software Capability Maturity Model (SCMM)
+A szoftver előállítási képesség érettségi modellje
 Minden szoftver fejlesztést (előállítást) végző szervezet sorban ugyanazokon a fázisokon megy keresztül. Az elkészül szoftver minősége a szoftver (előállítási) folyamat minőségén múlik. (CMM Capability Maturity Model)
 
 ## Initial (Level 1)

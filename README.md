@@ -1061,6 +1061,7 @@ Sikerek:
 - Altatási mélység szabályozás
 
 lásd: [Philips kapitány (Captain Phillips, 2013, Tom Hanks)](https://www.youtube.com/watch?v=vnjOjTzrjOw)
+Isty: eredeti pilóta neve: Chesley B. Sullenbergert
 
 ## Artificial Neural Networks
 Lineáris számítási igényű, eredménnyel tanítható

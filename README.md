@@ -1060,6 +1060,8 @@ Sikerek:
 - Japán gyorsvasút fékezőrendszere (1985 Hitachi)
 - Altatási mélység szabályozás
 
+lásd: [Philips kapitány (Captain Phillips, 2013, Tom Hanks)](https://www.youtube.com/watch?v=vnjOjTzrjOw)
+
 ## Artificial Neural Networks
 Lineáris számítási igényű, eredménnyel tanítható
 ```                                                                                                 Tanítás
